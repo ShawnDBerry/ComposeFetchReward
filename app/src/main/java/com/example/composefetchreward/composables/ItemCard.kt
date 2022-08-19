@@ -32,8 +32,14 @@ fun ItemCard(item: Item) {
                         .padding(4.dp)
                         .fillMaxWidth()
                 ) {
-                    Text(text = "List ID: " + item.listId, fontWeight = FontWeight.Bold)
                     Text(text = "ID: " + item.id, fontWeight = FontWeight.Bold)
+                }
+                Row(
+                    Modifier
+                        .padding(4.dp)
+                        .fillMaxWidth()
+                ) {
+                    Text(text = "List ID: " + item.listId, fontWeight = FontWeight.Bold)
                 }
                 Row(
                     Modifier
