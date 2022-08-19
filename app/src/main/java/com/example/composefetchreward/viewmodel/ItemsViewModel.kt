@@ -39,7 +39,6 @@ class ItemsViewModel @Inject constructor(private val itemsRepository: ItemsRepos
         }
     }
 
-
     private fun onError(message: String) { errorMessage.value = message }
 
     override fun onCleared() {
