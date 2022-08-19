@@ -18,13 +18,12 @@ import com.example.composefetchreward.model.Item
 @Composable
 fun ItemCard(item: Item) {
     Card(
-        modifier = Modifier.padding(4.dp),
-        shape = RoundedCornerShape(8.dp), elevation = 4.dp
+        modifier = Modifier.shadow(4.dp).padding(10.dp),
+        shape = RoundedCornerShape(8.dp), elevation = 10.dp
     ) {
         Surface {
             Column(
                 modifier = Modifier
-                    .shadow(4.dp)
                     .padding(10.dp)
             ) {
                 Row(
@@ -32,14 +31,14 @@ fun ItemCard(item: Item) {
                         .padding(4.dp)
                         .fillMaxWidth()
                 ) {
-                    Text(text = "ID: " + item.id, fontWeight = FontWeight.Bold)
+                    Text(text = "List ID: " + item.listId, fontWeight = FontWeight.Bold)
                 }
                 Row(
                     Modifier
                         .padding(4.dp)
                         .fillMaxWidth()
                 ) {
-                    Text(text = "List ID: " + item.listId, fontWeight = FontWeight.Bold)
+                    Text(text = "ID: " + item.id, fontWeight = FontWeight.Bold)
                 }
                 Row(
                     Modifier
