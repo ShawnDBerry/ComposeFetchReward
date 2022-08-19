@@ -11,7 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.composefetchreward.composables.ItemCard
-import com.example.composefetchreward.composables.ItemList
+import com.example.composefetchreward.composables.ItemCardList
 import com.example.composefetchreward.model.Item
 import com.example.composefetchreward.ui.theme.ComposeFetchRewardTheme
 import com.example.composefetchreward.viewmodel.ItemsViewModel
@@ -29,15 +29,12 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    viewModel.items?.let {
-                        ItemList(items = it)
-                    }
+                    viewModel.items?.let { ItemCardList(items = it) }
                 }
             }
         }
     }
 }
-
 
 @Preview(showBackground = true)
 @Composable

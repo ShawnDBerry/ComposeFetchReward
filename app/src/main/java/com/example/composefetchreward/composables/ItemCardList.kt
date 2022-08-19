@@ -7,7 +7,7 @@ import androidx.compose.runtime.snapshots.SnapshotStateList
 import com.example.composefetchreward.model.Item
 
 @Composable
-fun ItemList(items: List<Item>) {
+fun ItemCardList(items: List<Item>) {
     LazyColumn {
         itemsIndexed(items = items) { _, item ->
             ItemCard(item = item)

@@ -39,5 +39,3 @@ fun ItemCard(item: Item) {
         }
     }
 }
-
-
