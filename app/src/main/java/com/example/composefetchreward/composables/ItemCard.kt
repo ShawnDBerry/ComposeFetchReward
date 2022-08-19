@@ -1,6 +1,9 @@
 package com.example.composefetchreward.composables
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Surface
@@ -19,7 +22,11 @@ fun ItemCard(item: Item) {
         shape = RoundedCornerShape(8.dp), elevation = 4.dp
     ) {
         Surface {
-            Column(modifier = Modifier.shadow(4.dp).padding(10.dp)) {
+            Column(
+                modifier = Modifier
+                    .shadow(4.dp)
+                    .padding(10.dp)
+            ) {
                 Row(
                     Modifier
                         .padding(4.dp)
