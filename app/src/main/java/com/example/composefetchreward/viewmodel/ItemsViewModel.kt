@@ -9,6 +9,7 @@ import com.example.composefetchreward.model.Item
 import com.example.composefetchreward.repository.ItemsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.catch
 import javax.inject.Inject
 
 
@@ -25,15 +26,16 @@ class ItemsViewModel @Inject constructor(private val itemsRepository: ItemsRepos
     }
 
     private fun getItems() {
-        viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
-            itemsRepository.getItems().let { response ->
-                if (response.isSuccessful) {
-                    response.body()?.sortWith(compareBy({ it.listId }, { it.id }, { it.name }))
-                    response.body()?.removeAll { it.name == null || it.name == "" }
+        viewModelScope.launch(exceptionHandler) {
+            itemsRepository.getItems().catch{ exception -> onError(exception.message.toString()) }
+                .collect { response ->
+                if (response.isSuccess) {
+                    response.getOrNull()?.sortWith(compareBy({ it.listId }, { it.id }, { it.name }))
+                    response.getOrNull()?.removeAll { it.name == null || it.name == "" }
                     withContext(Dispatchers.Main) {
-                        items = response.body()
+                        items = response.getOrNull()
                     }
-                } else withContext(Dispatchers.Main) { onError("Error : ${response.message()}") }
+                }
             }
         }
     }
@@ -47,3 +49,9 @@ class ItemsViewModel @Inject constructor(private val itemsRepository: ItemsRepos
         viewModelScope.cancel()
     }
 }
+
+sealed class ItemsUiState {
+    data class Success(val items: List<Item>): ItemsUiState()
+    data class Error(val exception: Throwable): ItemsUiState()
+}
+
