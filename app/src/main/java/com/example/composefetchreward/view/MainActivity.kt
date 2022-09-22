@@ -48,11 +48,3 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    ComposeFetchRewardTheme {
-        ItemCard(item = Item(1, 1, "fasf"))
-    }
-}

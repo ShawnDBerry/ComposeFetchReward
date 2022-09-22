@@ -12,8 +12,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.composefetchreward.model.Item
+import com.example.composefetchreward.ui.theme.ComposeFetchRewardTheme
 
 @Composable
 fun ItemCard(item: Item) {
@@ -49,5 +51,13 @@ fun ItemCard(item: Item) {
                 }
             }
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun DefaultPreview() {
+    ComposeFetchRewardTheme {
+        ItemCard(item = Item(1, 1, "fasf"))
     }
 }
