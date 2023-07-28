@@ -14,7 +14,8 @@ import javax.inject.Inject
 
 
 @HiltViewModel
-class ItemsViewModel @Inject constructor(private val itemsRepository: ItemsRepository) : ViewModel() {
+class ItemsViewModel @Inject constructor(private val itemsRepository: ItemsRepository) :
+    ViewModel() {
     private val errorMessage = mutableStateOf("")
     var items: List<Item>? by mutableStateOf(listOf())
     private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
@@ -27,16 +28,17 @@ class ItemsViewModel @Inject constructor(private val itemsRepository: ItemsRepos
 
     private fun getItems() {
         viewModelScope.launch(exceptionHandler) {
-            itemsRepository.getItems().catch{ exception -> onError(exception.message.toString()) }
+            itemsRepository.getItems().catch { exception -> onError(exception.message.toString()) }
                 .collect { response ->
-                if (response.isSuccess) {
-                    response.getOrNull()?.sortWith(compareBy({ it.listId }, { it.id }, { it.name }))
-                    response.getOrNull()?.removeAll { it.name == null || it.name == "" }
-                    withContext(Dispatchers.Main) {
-                        items = response.getOrNull()
+                    if (response.isSuccess) {
+                        response.getOrNull()
+                            ?.sortWith(compareBy({ it.listId }, { it.id }, { it.name }))
+                        response.getOrNull()?.removeAll { it.name == "" }
+                        withContext(Dispatchers.Main) {
+                            items = response.getOrNull()
+                        }
                     }
                 }
-            }
         }
     }
 
@@ -48,10 +50,5 @@ class ItemsViewModel @Inject constructor(private val itemsRepository: ItemsRepos
         super.onCleared()
         viewModelScope.cancel()
     }
-}
-
-sealed class ItemsUiState {
-    data class Success(val items: List<Item>): ItemsUiState()
-    data class Error(val exception: Throwable): ItemsUiState()
 }
 
